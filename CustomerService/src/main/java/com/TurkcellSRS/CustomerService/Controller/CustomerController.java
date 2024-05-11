@@ -1,0 +1,46 @@
+package com.TurkcellSRS.CustomerService.Controller;
+
+import com.TurkcellSRS.CustomerService.DTO.Requests.CustomerRequests.AddCustomerRequest;
+import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.AddCustomerResponse;
+import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.CustomerInfoResponse;
+import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.SearchCustomerResponse;
+import com.TurkcellSRS.CustomerService.Logic.Services.CustomerServiceImpl;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+@RestController
+@RequestMapping("/api/v1/customers")
+@RequiredArgsConstructor
+public class CustomerController {
+
+    private final CustomerServiceImpl customerService;
+
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<SearchCustomerResponse>> searchCustomerByVariables(@RequestParam(required = false ,defaultValue = "") Long nationalityId,
+                                                                                  @RequestParam(required = false, defaultValue = "") Long id,
+                                                                                  @RequestParam(required = false, defaultValue = "") String firstName,
+                                                                                  @RequestParam(required = false , defaultValue =  "") String middleName,
+                                                                                  @RequestParam(required = false , defaultValue =  "") String lastName){
+        return customerService.searchByVariables(nationalityId, id, firstName, middleName, lastName);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerInfoResponse> getCustomer(@PathVariable Long id){
+        return customerService.getCustomers(id);
+    }
+
+
+
+    @PostMapping
+    public ResponseEntity<AddCustomerResponse> addCustomer(@Valid @RequestBody  AddCustomerRequest addCustomerRequest){
+
+
+        return customerService.addCustomer(addCustomerRequest);
+}}
