@@ -26,6 +26,16 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
 //    ResponseEntity<List<SearchCustomerResponse>> searchCustomer(Customer customerRequest);
 
 
-    List<Customer> findByNationalityIdOrIdOrFirstNameOrMiddleNameOrLastName(Long nationalityId, Long id, String firstName, String middleName, String lastName);
+//    List<Customer> findByNationalityIdOrIdOrFirstNameOrMiddleNameOrLastName(Long nationalityId, Long id, String firstName, String middleName, String lastName);
 
+
+    @Query("SELECT new com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.SearchCustomerResponse(c.id, c.firstName, c.middleName, c.lastName, c.nationalityId) " +
+            "FROM Customer c " +
+            "WHERE (c.nationalityId = :nationalityId) " +
+            "or (c.id = :id) " +
+            "or (c.firstName = :firstName) " +
+            "or (c.middleName = :middleName) " +
+            "or (c.lastName = :lastName)")
+    List<SearchCustomerResponse> findByFilter(Long nationalityId, Long id, String firstName, String middleName, String lastName);
 }
+

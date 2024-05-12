@@ -46,12 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     public ResponseEntity<List<SearchCustomerResponse>> searchByVariables(Long nationalityId, Long id, String firstName, String middleName, String lastName) {
-        List<Customer> customers = customerRepository.findByNationalityIdOrIdOrFirstNameOrMiddleNameOrLastName(nationalityId, id, firstName, middleName, lastName);
-        System.out.println(customers);
-        List<SearchCustomerResponse> responses = customers.stream()
-                .map(customer -> modelMapper.map(customer, SearchCustomerResponse.class))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(responses);
+        return ResponseEntity.ok(customerRepository.findByFilter(nationalityId, id, firstName, middleName, lastName));
     }
 
 }
