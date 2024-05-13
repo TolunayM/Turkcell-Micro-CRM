@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.MediaSize;
 import java.util.List;
 
 
@@ -24,11 +25,11 @@ public class CustomerController {
 
 
     @GetMapping("/search")
-    public ResponseEntity<List<SearchCustomerResponse>> searchCustomerByVariables(@RequestParam(required = false ,defaultValue = "") Long nationalityId,
-                                                                                  @RequestParam(required = false, defaultValue = "") Long id,
-                                                                                  @RequestParam(required = false, defaultValue = "") String firstName,
-                                                                                  @RequestParam(required = false , defaultValue =  "") String middleName,
-                                                                                  @RequestParam(required = false , defaultValue =  "") String lastName){
+    public ResponseEntity<List<SearchCustomerResponse>> searchCustomerByVariables(@RequestParam(required = false ,defaultValue = " ") Long nationalityId,
+                                                                                  @RequestParam(required = false, defaultValue = " ") Long id,
+                                                                                  @RequestParam(required = false, defaultValue = " ") String firstName,
+                                                                                  @RequestParam(required = false , defaultValue =  " ") String middleName,
+                                                                                  @RequestParam(required = false , defaultValue = " ") String lastName){
         return customerService.searchByVariables(nationalityId, id, firstName, middleName, lastName);
     }
     @GetMapping("/{id}")
@@ -40,7 +41,10 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<AddCustomerResponse> addCustomer(@Valid @RequestBody  AddCustomerRequest addCustomerRequest){
-
-
         return customerService.addCustomer(addCustomerRequest);
-}}
+}
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable Long id){
+        return customerService.deleteCustomer(id);
+    }
+}

@@ -18,29 +18,28 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Digits(integer = 11, fraction = 0) @Positive
     private Long nationalityId;
-    @Positive
+
     private Long accountNumber;
 
-    @NotBlank(message = "This field is required") @Size(max = 50)
+
     private String firstName;
 
-    @Size(max = 50) @Pattern(regexp = "^[a-zA-Z0-9_]*[a-zA-Z_]*[a-zA-Z0-9_]*$")
+
     private String middleName;
 
-    @NotBlank(message = "This field is required") @Size(max = 50)  @Pattern(regexp = "^[a-zA-Z0-9_]*[a-zA-Z_]*[a-zA-Z0-9_]*$")
+
     private String lastName;
 
-    @Size(max = 50) @Pattern(regexp = "^[a-zA-Z0-9_]*[a-zA-Z_]*[a-zA-Z0-9_]*$")
+
     private String fatherName;
 
-    @Size(max = 50) @Pattern(regexp = "^[a-zA-Z0-9_]*[a-zA-Z_]*[a-zA-Z0-9_]*$")
+
     private String motherName;
 
     private Date birthDate;
 
-    @NotBlank(message = "This field is required")
+
     private String gender;
 
     @OneToMany
