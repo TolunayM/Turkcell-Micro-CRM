@@ -1,13 +1,14 @@
 package com.TurkcellSRS.CustomerService.Logic.Services;
 
+import com.TurkcellSRS.CustomerService.DTO.Requests.CustomerRequests.UpdateCustomerRequest;
+import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.*;
 import com.TurkcellSRS.CustomerService.Logic.Contract.CustomerService;
 import com.TurkcellSRS.CustomerService.DTO.Requests.CustomerRequests.AddCustomerRequest;
 import com.TurkcellSRS.CustomerService.DTO.Requests.CustomerRequests.SearchCustomerRequest;
-import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.AddCustomerResponse;
-import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.CustomerInfoResponse;
-import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.SearchCustomerResponse;
 import com.TurkcellSRS.CustomerService.Entity.Customer;
+import com.TurkcellSRS.CustomerService.Logic.Rules.CustomerBusinessRules;
 import com.TurkcellSRS.CustomerService.Repository.CustomerRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final ModelMapper modelMapper;
     private final CustomerRepository customerRepository;
-
+    private final CustomerBusinessRules customerBusinessRules;
 
     public ResponseEntity<CustomerInfoResponse> getCustomers(Long id) {
         var customer = customerRepository.findById(id).orElseThrow();
@@ -30,6 +31,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
     @Override
     public ResponseEntity<AddCustomerResponse> addCustomer(AddCustomerRequest addCustomerRequest) {
+
+        //TODO Check if the nationality id is exist on another customer
+        customerBusinessRules.checkCustomerWithSameNationalityIdIsExist(addCustomerRequest.getNationalityId());
+
         var saveCustomer = modelMapper.map(addCustomerRequest, Customer.class);
         var savedCustomer = customerRepository.save(saveCustomer);
         return ResponseEntity.ok(modelMapper.map(savedCustomer, AddCustomerResponse.class));
@@ -46,7 +51,22 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     public ResponseEntity<List<SearchCustomerResponse>> searchByVariables(Long nationalityId, Long id, String firstName, String middleName, String lastName) {
+
+        customerBusinessRules.checkCustomerIsExist(nationalityId,id, firstName,middleName,lastName);
         return ResponseEntity.ok(customerRepository.findByFilter(nationalityId, id, firstName, middleName, lastName));
     }
 
+    public ResponseEntity<UpdateCustomerResponse> updateCustomer(UpdateCustomerRequest updateCustomerRequest) {
+        //TODO Check if the nationality id is exist on another customer
+
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<String> deleteCustomer(Long id) {
+        //TODO Check if the customer has active order or product ?
+        customerBusinessRules.checkCustomerIsExist(id);
+        customerRepository.deleteById(id);
+        return ResponseEntity.ok("Customer deleted successfully");
+    }
 }
