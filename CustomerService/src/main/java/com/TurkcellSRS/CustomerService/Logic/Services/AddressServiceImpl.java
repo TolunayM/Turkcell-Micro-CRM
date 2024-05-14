@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -43,19 +42,31 @@ public class AddressServiceImpl implements AddressService {
         return ResponseEntity.ok(modelMapper.map(savedAddress, AddAddressResponse.class));
     }
 
+    //TODO Changeable to business rule
     @Override
-    public ResponseEntity<UpdateAddressResponse> updateAddress(UpdateAddressRequest updateAddressRequest) {
-        return null;
+    public ResponseEntity<UpdateAddressResponse> updateAddress(Long addressId, UpdateAddressRequest updateAddressRequest) {
+        if(addressRepository.existsById(addressId)){
+            var updateAddress = modelMapper.map(updateAddressRequest, Address.class);
+            var savedAddress = addressRepository.save(updateAddress);
+            return ResponseEntity.ok(modelMapper.map(savedAddress, UpdateAddressResponse.class));
+        }
+        return ResponseEntity.ok(modelMapper.map("Address not found with id: " + updateAddressRequest.getId(), UpdateAddressResponse.class));
     }
 
     @Override
-    public ResponseEntity<DeleteAddressResponse> deleteAddress(Long addressId) {
-        return null;
+    public ResponseEntity<String> deleteAddress(Long addressId) {
+        if(addressRepository.existsById(addressId)){
+            addressRepository.deleteById(addressId);
+            return ResponseEntity.ok("Address deleted successfully");
+        }
+        return ResponseEntity.ok("Address not found with id: " + addressId);
     }
 
     @Override
     public ResponseEntity<AddressResponse> getAddress(Long addressId) {
-        return null;
+        //TODO Change this to business rule
+        return ResponseEntity.ok(modelMapper.map(addressRepository.findById(addressId).orElseThrow(()
+                -> new RuntimeException("Address not found with id: " + addressId)), AddressResponse.class));
     }
 
     public ResponseEntity<List<AddressResponse>> getAddressesByCustomerId(Long customerId) {

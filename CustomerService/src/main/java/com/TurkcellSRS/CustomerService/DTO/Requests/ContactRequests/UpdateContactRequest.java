@@ -1,13 +1,10 @@
 package com.TurkcellSRS.CustomerService.DTO.Requests.ContactRequests;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
-public class AddContactRequest {
+public class UpdateContactRequest {
 
     @NotBlank(message = "This field is required")
     @Email
@@ -25,7 +22,4 @@ public class AddContactRequest {
     @Digits(integer = 12, fraction = 0)
     @Positive
     private Long fax;
-
-    @NotNull
-    private Long customerId;
 }
