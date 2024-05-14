@@ -1,9 +1,7 @@
 package com.TurkcellSRS.CustomerService.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -31,4 +29,9 @@ public class Contact {
     @Digits(integer = 12, fraction = 0)
     @Positive
     private Long fax;
+
+    @OneToOne
+    @JsonBackReference
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }
