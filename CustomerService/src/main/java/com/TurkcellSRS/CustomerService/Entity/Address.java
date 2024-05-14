@@ -1,9 +1,7 @@
 package com.TurkcellSRS.CustomerService.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -14,19 +12,14 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank(message = "This field is required")
     private String city;
-
-    @NotBlank(message = "This field is required")
     private String district;
-
-    @NotBlank(message = "This field is required")
     private String street;
-
-    @NotBlank(message = "This field is required")
     private Long houseNumber;
-
-    @NotBlank(message = "This field is required")
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonBackReference
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }
