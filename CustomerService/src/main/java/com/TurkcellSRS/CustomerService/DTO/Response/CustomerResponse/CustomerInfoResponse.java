@@ -17,5 +17,7 @@ public class CustomerInfoResponse {
     private String motherName;
     private Date birthDate;
     private String gender;
+    //TODO change this to dto
+    private List<Address> addresses;
 
 }

@@ -1,16 +1,19 @@
 package com.TurkcellSRS.CustomerService.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
-@Table
 public class Customer {
 
 
@@ -42,11 +45,12 @@ public class Customer {
 
     private String gender;
 
-    @OneToMany
-    @JoinColumn(name = "address_id")
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "customer")
     private List<Address> addresses;
 
-    @OneToOne
-    @JoinColumn(name = "contact_id")
+    @JsonManagedReference
+    @OneToOne(mappedBy = "customer")
     private Contact contact;
 }

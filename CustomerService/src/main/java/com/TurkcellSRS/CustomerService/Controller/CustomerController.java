@@ -1,9 +1,11 @@
 package com.TurkcellSRS.CustomerService.Controller;
 
 import com.TurkcellSRS.CustomerService.DTO.Requests.CustomerRequests.AddCustomerRequest;
+import com.TurkcellSRS.CustomerService.DTO.Requests.CustomerRequests.UpdateCustomerRequest;
 import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.AddCustomerResponse;
 import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.CustomerInfoResponse;
 import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.SearchCustomerResponse;
+import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.UpdateCustomerResponse;
 import com.TurkcellSRS.CustomerService.Logic.Services.CustomerServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +48,10 @@ public class CustomerController {
     @DeleteMapping("/remove/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable Long id){
         return customerService.deleteCustomer(id);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<UpdateCustomerResponse> updateCustomer(@Valid @RequestBody UpdateCustomerRequest updateCustomerRequest){
+        return customerService.updateCustomer(updateCustomerRequest);
     }
 }

@@ -1,5 +1,8 @@
 package com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse;
 
+import lombok.Data;
+
+@Data
 public class UpdateCustomerResponse {
 
     private String firstName;

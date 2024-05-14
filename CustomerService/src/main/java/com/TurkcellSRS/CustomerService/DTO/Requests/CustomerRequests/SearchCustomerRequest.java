@@ -12,4 +12,5 @@ public class SearchCustomerRequest {
     private String firstName;
     private String middleName;
     private String lastName;
+
 }

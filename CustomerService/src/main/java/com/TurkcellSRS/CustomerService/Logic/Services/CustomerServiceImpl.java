@@ -31,8 +31,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
     @Override
     public ResponseEntity<AddCustomerResponse> addCustomer(AddCustomerRequest addCustomerRequest) {
-
-        //TODO Check if the nationality id is exist on another customer
         customerBusinessRules.checkCustomerWithSameNationalityIdIsExist(addCustomerRequest.getNationalityId());
 
         var saveCustomer = modelMapper.map(addCustomerRequest, Customer.class);
@@ -57,9 +55,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     public ResponseEntity<UpdateCustomerResponse> updateCustomer(UpdateCustomerRequest updateCustomerRequest) {
-        //TODO Check if the nationality id is exist on another customer
-
-        return null;
+        customerBusinessRules.checkCustomerWithSameNationalityIdIsExist(updateCustomerRequest.getNationalityId());
+        var customer = modelMapper.map(updateCustomerRequest, Customer.class);
+        var updatedCustomer = customerRepository.save(customer);
+        return ResponseEntity.ok(modelMapper.map(updatedCustomer, UpdateCustomerResponse.class));
     }
 
     @Override
