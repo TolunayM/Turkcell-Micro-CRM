@@ -41,7 +41,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
 
     @Query("SELECT new com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.SearchCustomerResponse(c.id, c.firstName, c.middleName, c.lastName, c.nationalityId) " +
             "FROM Customer c " +
-            "WHERE (c.nationalityId = :nationalityId) ")
+            "WHERE (c.nationalityId = :nationalityId)")
     SearchCustomerResponse existByNationalityId(Long nationalityId);
 }
 

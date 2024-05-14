@@ -32,7 +32,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public ResponseEntity<AddCustomerResponse> addCustomer(AddCustomerRequest addCustomerRequest) {
         customerBusinessRules.checkCustomerWithSameNationalityIdIsExist(addCustomerRequest.getNationalityId());
-
         var saveCustomer = modelMapper.map(addCustomerRequest, Customer.class);
         var savedCustomer = customerRepository.save(saveCustomer);
         return ResponseEntity.ok(modelMapper.map(savedCustomer, AddCustomerResponse.class));

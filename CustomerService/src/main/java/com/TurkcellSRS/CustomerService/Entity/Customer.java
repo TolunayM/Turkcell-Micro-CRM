@@ -20,29 +20,14 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long nationalityId;
-
     private Long accountNumber;
-
-
     private String firstName;
-
-
     private String middleName;
-
-
     private String lastName;
-
-
     private String fatherName;
-
-
     private String motherName;
-
     private Date birthDate;
-
-
     private String gender;
 
 
