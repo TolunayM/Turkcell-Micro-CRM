@@ -23,7 +23,7 @@ public class ContactController {
 
 
 
-    @GetMapping("/costumers/{contactId}")
+    @GetMapping("/costumers/{costumerId}")
         public ResponseEntity<ContactResponse> getContactByCustomer(@PathVariable Long costumerId){
         return contactService.getContactByCustomer(costumerId);
     }

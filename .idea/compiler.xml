@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="BillingAccountService" />
         <module name="API-Gateway" />
         <module name="CartService" />
         <module name="CustomerService" />
@@ -18,6 +19,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="API-Gateway" options="-parameters" />
+      <module name="BillingAccountService" options="-parameters" />
       <module name="CartService" options="-parameters" />
       <module name="CustomerService" options="-parameters" />
       <module name="Eureka-Discovery-Server" options="-parameters" />
