@@ -30,6 +30,9 @@ public class Customer {
     private Date birthDate;
     private String gender;
 
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address defaultAddress;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "customer")

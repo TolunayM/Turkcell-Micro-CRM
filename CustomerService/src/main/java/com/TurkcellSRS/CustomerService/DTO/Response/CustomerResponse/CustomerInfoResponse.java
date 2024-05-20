@@ -1,5 +1,6 @@
 package com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse;
 
+import com.TurkcellSRS.CustomerService.DTO.Response.AddressResponse.AddressResponse;
 import com.TurkcellSRS.CustomerService.Entity.Address;
 import com.TurkcellSRS.CustomerService.Entity.Contact;
 import lombok.Data;
@@ -18,6 +19,8 @@ public class CustomerInfoResponse {
     private Date birthDate;
     private String gender;
     //TODO change this to dto
-    private List<Address> addresses;
+    private AddressResponse defaultAddress;
+    private List<AddressResponse> addresses;
+
 
 }

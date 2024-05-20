@@ -1,12 +1,14 @@
 package com.TurkcellSRS.CustomerService.Logic.Services;
 
 import com.TurkcellSRS.CustomerService.DTO.Requests.CustomerRequests.UpdateCustomerRequest;
+import com.TurkcellSRS.CustomerService.DTO.Response.AddressResponse.AddressResponse;
 import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.*;
 import com.TurkcellSRS.CustomerService.Logic.Contract.CustomerService;
 import com.TurkcellSRS.CustomerService.DTO.Requests.CustomerRequests.AddCustomerRequest;
 import com.TurkcellSRS.CustomerService.DTO.Requests.CustomerRequests.SearchCustomerRequest;
 import com.TurkcellSRS.CustomerService.Entity.Customer;
 import com.TurkcellSRS.CustomerService.Logic.Rules.CustomerBusinessRules;
+import com.TurkcellSRS.CustomerService.Repository.AddressRepository;
 import com.TurkcellSRS.CustomerService.Repository.CustomerRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     public ResponseEntity<CustomerInfoResponse> getCustomers(Long id) {
         var customer = customerRepository.findById(id).orElseThrow();
-        return ResponseEntity.ok(modelMapper.map(customer, CustomerInfoResponse.class));
+        CustomerInfoResponse customerInfoResponse = modelMapper.map(customer, CustomerInfoResponse.class);
+        return ResponseEntity.ok(customerInfoResponse);
     }
     @Override
     public ResponseEntity<AddCustomerResponse> addCustomer(AddCustomerRequest addCustomerRequest) {

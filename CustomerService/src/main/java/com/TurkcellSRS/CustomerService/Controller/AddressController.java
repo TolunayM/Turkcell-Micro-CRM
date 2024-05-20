@@ -9,6 +9,7 @@ import com.TurkcellSRS.CustomerService.Entity.Address;
 import com.TurkcellSRS.CustomerService.Logic.Contract.AddressService;
 import com.TurkcellSRS.CustomerService.Logic.Services.AddressServiceImpl;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.Path;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +44,10 @@ public class AddressController {
     @PutMapping("/{addressId}")
     public ResponseEntity<UpdateAddressResponse> updateAddress(@PathVariable Long addressId, @Valid @RequestBody UpdateAddressRequest updateAddressRequest) {
         return addressService.updateAddress(addressId, updateAddressRequest);
+    }
+
+    @PostMapping("{customerId}/{addressId}")
+    public ResponseEntity<AddressResponse> setDefaultAddress(@PathVariable Long customerId, @PathVariable Long addressId) {
+        return addressService.setDefaultAddress(customerId, addressId);
     }
 }

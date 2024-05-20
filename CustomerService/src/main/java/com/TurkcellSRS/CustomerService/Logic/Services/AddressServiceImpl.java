@@ -72,4 +72,15 @@ public class AddressServiceImpl implements AddressService {
     public ResponseEntity<List<AddressResponse>> getAddressesByCustomerId(Long customerId) {
         return ResponseEntity.ok(addressRepository.findAllByCustomerId(customerId));
     }
+
+    public ResponseEntity<AddressResponse> setDefaultAddress(Long customerId, Long addressId) {
+        //TODO Change this to business rule
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Customer not found with id: " + customerId));
+        Address address = addressRepository.findById(addressId)
+                .orElseThrow(() -> new RuntimeException("Address not found with id: " + addressId));
+        customer.setDefaultAddress(address);
+        customerRepository.save(customer);
+        return ResponseEntity.ok(modelMapper.map(address, AddressResponse.class));
+    }
 }
