@@ -56,6 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
         return ResponseEntity.ok(customerRepository.findByFilter(nationalityId, id, firstName, middleName, lastName));
     }
 
+
     public ResponseEntity<UpdateCustomerResponse> updateCustomer(UpdateCustomerRequest updateCustomerRequest) {
         customerBusinessRules.checkCustomerWithSameNationalityIdIsExist(updateCustomerRequest.getNationalityId());
         var customer = modelMapper.map(updateCustomerRequest, Customer.class);

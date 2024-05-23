@@ -17,6 +17,10 @@ spring:
           uri: lb://product-service
           predicates:
             - Path=/api/v1/products/**, api/v1/categories/**
+        - id: account-service
+          uri: lb://account-service
+          predicates:
+            - Path=/api/v1/accounts/**
       discovery:
         locator:
           enabled: true

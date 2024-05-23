@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -33,6 +34,9 @@ public class Customer {
     @OneToOne
     @JoinColumn(name = "address_id")
     private Address defaultAddress;
+
+//    @OneToMany(mappedBy = "customer")
+//    private Set<Account> account;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "customer")

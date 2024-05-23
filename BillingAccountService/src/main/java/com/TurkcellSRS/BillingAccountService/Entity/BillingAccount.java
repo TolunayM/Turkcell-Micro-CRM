@@ -14,13 +14,13 @@ public class BillingAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long accountNumber;
-    private Long costumerId;
+    private Long customer;
+    private Long address;
     private String name;
     private String type;
     private String description;
     private Boolean status;
-
+    
     @OneToMany
     private Set<AccountCart> accountCarts;
-
 }
