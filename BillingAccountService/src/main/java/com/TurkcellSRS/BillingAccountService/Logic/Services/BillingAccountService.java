@@ -8,7 +8,6 @@ import com.TurkcellSRS.BillingAccountService.Repository.BillingAccountRepository
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
