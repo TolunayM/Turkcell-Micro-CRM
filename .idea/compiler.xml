@@ -9,10 +9,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="BillingAccountService" />
         <module name="API-Gateway" />
-        <module name="CartService" />
         <module name="CustomerService" />
-        <module name="Eureka-Discovery-Server" />
         <module name="ProductService" />
+        <module name="CartService" />
+        <module name="Eureka-Discovery-Server" />
+        <module name="PricingService" />
       </profile>
     </annotationProcessing>
   </component>
@@ -23,6 +24,7 @@
       <module name="CartService" options="-parameters" />
       <module name="CustomerService" options="-parameters" />
       <module name="Eureka-Discovery-Server" options="-parameters" />
+      <module name="PricingService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
     </option>
   </component>

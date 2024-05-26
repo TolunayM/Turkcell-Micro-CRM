@@ -16,6 +16,7 @@ public class BillingAccount {
     private Long accountNumber;
     private Long customer;
     private Long address;
+    private Long serviceAddress;
     private String name;
     private String type;
     private String description;

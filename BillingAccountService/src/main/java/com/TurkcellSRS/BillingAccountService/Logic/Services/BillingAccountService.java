@@ -36,9 +36,8 @@ public class BillingAccountService {
             customerBillingAccounts.add(modelMapper.map(account, BillingAccountResponse.class));
         });
         return ResponseEntity.ok(customerBillingAccounts);
+
     }
-
-
 
     public ResponseEntity<BillingAccountResponse> createBillingAccount(BillingAccountRequest billingAccountRequest) {
         var billingAccount = modelMapper.map(billingAccountRequest, BillingAccount.class);

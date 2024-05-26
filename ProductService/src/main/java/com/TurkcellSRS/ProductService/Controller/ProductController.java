@@ -37,4 +37,9 @@ public class ProductController {
     public ResponseEntity<ProductResponse> assignCategory(@PathVariable Long productId, @PathVariable Long categoryId){
         return productService.assignCategory(productId, categoryId);
     }
+
+    @GetMapping("/price/{productId}")
+public ResponseEntity<Double> getProductPrice(@PathVariable Long productId){
+        return productService.getProductPrice(productId);
+    }
 }

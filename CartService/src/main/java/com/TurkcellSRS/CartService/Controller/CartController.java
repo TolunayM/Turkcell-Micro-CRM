@@ -2,6 +2,7 @@ package com.TurkcellSRS.CartService.Controller;
 
 
 import com.TurkcellSRS.CartService.DTO.Response.CartCreateResponse;
+import com.TurkcellSRS.CartService.DTO.Response.CartProductsResponse;
 import com.TurkcellSRS.CartService.DTO.Response.CartResponse;
 import com.TurkcellSRS.CartService.Logic.Services.CartServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,10 @@ public class CartController {
                                                       @PathVariable Long productId,
                                                       @RequestParam int quantity){
         return cartService.addItemToCart(cartId, productId,quantity);
+    }
+
+    @GetMapping("/{cartId}")
+    public ResponseEntity<CartProductsResponse> getCartProducts(@PathVariable Long cartId){
+        return cartService.getCartProducts(cartId);
     }
 }

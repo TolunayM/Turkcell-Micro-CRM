@@ -58,4 +58,12 @@ public class ProductServiceImpl implements ProductService {
         }
         return ResponseEntity.notFound().build();
     }
+
+    public ResponseEntity<Double> getProductPrice(Long productId){
+        var product = productRepository.findById(productId);
+        if(product.isPresent()){
+            return ResponseEntity.ok(product.get().getPrice());
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

@@ -27,19 +27,17 @@ public class CustomerController {
 
 
     @GetMapping("/search")
-    public ResponseEntity<List<SearchCustomerResponse>> searchCustomerByVariables(@RequestParam(required = false ,defaultValue = " ") Long nationalityId,
+    public ResponseEntity<List<SearchCustomerResponse>> searchCustomerByVariables(@RequestParam(required = false, defaultValue = " ") Long nationalityId,
                                                                                   @RequestParam(required = false, defaultValue = " ") Long id,
                                                                                   @RequestParam(required = false, defaultValue = " ") String firstName,
-                                                                                  @RequestParam(required = false , defaultValue =  " ") String middleName,
-                                                                                  @RequestParam(required = false , defaultValue = " ") String lastName){
+                                                                                  @RequestParam(required = false, defaultValue =  " ") String middleName,
+                                                                                  @RequestParam(required = false, defaultValue = " ") String lastName){
         return customerService.searchByVariables(nationalityId, id, firstName, middleName, lastName);
     }
     @GetMapping("/{id}")
     public ResponseEntity<CustomerInfoResponse> getCustomer(@PathVariable Long id){
         return customerService.getCustomers(id);
     }
-
-
 
     @PostMapping
     public ResponseEntity<AddCustomerResponse> addCustomer(@Valid @RequestBody  AddCustomerRequest addCustomerRequest){
