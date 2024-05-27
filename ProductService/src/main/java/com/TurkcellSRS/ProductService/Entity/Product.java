@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "product_type",
+    discriminatorType = DiscriminatorType.STRING)
 @Data
 public class Product {
 
@@ -20,7 +23,6 @@ public class Product {
     private String name;
     private String description;
     private Double price;
-
 
 
     @ManyToMany(cascade = CascadeType.ALL)
