@@ -45,6 +45,7 @@ public class CartServiceImpl {
         // flush makes data goes brrr to db
         cartRepository.flush();
         cart.get().setTotalPrice(totalPrice(cartId));
+        cartRepository.save(cart.get());
         return ResponseEntity.ok(modelMapper.map(cart, CartResponse.class));
     }
 

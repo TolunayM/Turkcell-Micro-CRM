@@ -17,8 +17,10 @@ public class PriceServiceImpl {
 
         //TODO make adjustments for the cart and first check if products charachteristics
         CartProductsDTO cartProducts = cartClient.getCartProducts(cartId);
+        System.out.println(cartProducts.getProductId());
         double totalPrice = 0.0;
         for (Long productId : cartProducts.getProductId().keySet()) {
+            System.out.println(productId);
             totalPrice += productClient.getProductById(productId).getPrice() * cartProducts.getProductId().get(productId);
         }
         return totalPrice;

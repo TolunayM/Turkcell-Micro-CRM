@@ -8,6 +8,7 @@ import lombok.Data;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -31,6 +32,8 @@ public class Product {
     )
     private Set<Category> category = new HashSet<>();
 
+//    @ElementCollection
+//    private Map<String,Long> characteristics;
 
     @Override
     public int hashCode() {
