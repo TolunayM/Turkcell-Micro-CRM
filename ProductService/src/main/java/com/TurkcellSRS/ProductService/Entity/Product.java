@@ -32,8 +32,8 @@ public class Product {
     )
     private Set<Category> category = new HashSet<>();
 
-//    @ElementCollection
-//    private Map<String,Long> characteristics;
+    @ElementCollection
+    private Map<String,Long> characteristics;
 
     @Override
     public int hashCode() {

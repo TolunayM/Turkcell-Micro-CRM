@@ -15,12 +15,24 @@ public class PriceServiceImpl {
     private final ProductClient productClient;
     public Double calculatePrice(Long cartId) {
 
-        //TODO make adjustments for the cart and first check if products charachteristics
+        //TODO make adjustments for the cart
         CartProductsDTO cartProducts = cartClient.getCartProducts(cartId);
-        System.out.println(cartProducts.getProductId());
+
         double totalPrice = 0.0;
         for (Long productId : cartProducts.getProductId().keySet()) {
-            System.out.println(productId);
+            var product = productClient.getProductById(productId);
+            if(product != null && !product.getCharacteristics().keySet().isEmpty()){
+
+                // TODO Check for each keys if its available in the product
+                System.out.println("Product has characteristics");
+                System.out.println(productClient.getProductById(productId).getCharacteristics().keySet());
+                totalPrice += product.getCharacteristics().get("sms") * 10;
+                totalPrice += product.getCharacteristics().get("call") * 20;
+                totalPrice += product.getCharacteristics().get("internet") * 30;
+                return totalPrice;
+            }
+
+            // second part of the code is quantity
             totalPrice += productClient.getProductById(productId).getPrice() * cartProducts.getProductId().get(productId);
         }
         return totalPrice;

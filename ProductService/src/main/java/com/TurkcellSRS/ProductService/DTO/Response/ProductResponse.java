@@ -13,7 +13,7 @@ public class ProductResponse {
     private String name;
     private String description;
     private Double price;
-//    private Map<String,Long> characteristics;
+    private Map<String,Long> characteristics;
 
     @JsonBackReference
     private Set<CategoryResponse> category;

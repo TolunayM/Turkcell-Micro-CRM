@@ -14,7 +14,7 @@ public class ProductResponseWithCategory {
     private String name;
     private String description;
     private Double price;
-//    private Map<String,Long> characteristics;
+    private Map<String,Long> characteristics;
 
     @JsonManagedReference
     private Set<CategoryResponse> category;
