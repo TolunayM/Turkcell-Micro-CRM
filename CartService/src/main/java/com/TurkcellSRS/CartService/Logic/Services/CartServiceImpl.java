@@ -10,6 +10,7 @@ import com.TurkcellSRS.CartService.DTO.Response.CartProductsResponse;
 import com.TurkcellSRS.CartService.DTO.Response.CartResponse;
 import com.TurkcellSRS.CartService.DTO.Response.CartWithChars;
 import com.TurkcellSRS.CartService.Entity.Cart;
+import com.TurkcellSRS.CartService.Entity.CartItem;
 import com.TurkcellSRS.CartService.Repository.CartRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,12 @@ public class CartServiceImpl {
 
         //TODO Make adjustments for the cart and first check if product already exist in cart db if not then make service call
         var cart = cartRepository.findById(cartId);
-        cart.get().getProductId().put(productId,quantity);
+        CartItem cartItem = new CartItem();
+        cartItem.setId(productId);
+        cartItem.setQuantity(quantity);
+        cartItem.getCharacteristics().put("sms", 100);
+        cartItem.getCharacteristics().put("call", 1000);
+        cartItem.getCharacteristics().put("internet", 10);
         // flush makes data goes brrr to db
         cartRepository.flush();
         cart.get().setTotalPrice(totalPrice(cartId));
@@ -65,7 +71,7 @@ public class CartServiceImpl {
 
     //This changes only effect the cart items not the product itself
     public ResponseEntity<CartWithChars> updateCartItemsCharacteristics(Long cartId, Long productId){
-
+        return null;
     }
 }
 

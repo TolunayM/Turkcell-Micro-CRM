@@ -3,9 +3,10 @@ package com.TurkcellSRS.PricingService.DTO;
 
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 @Data
 public class CartProductsDTO {
-    private Map<Long,Integer> productId;
+    private List<ProductDTO> products;
 }

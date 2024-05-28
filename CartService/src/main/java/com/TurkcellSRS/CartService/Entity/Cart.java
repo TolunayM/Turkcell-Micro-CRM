@@ -17,14 +17,14 @@ public class Cart {
     private Long id;
     private Long customerId;
     private Double totalPrice;
-//    @ManyToMany
-//    @JoinTable(
-//            name = "cart_cart_item",
-//            joinColumns = @JoinColumn(name = "cart_id"),
-//            inverseJoinColumns = @JoinColumn(name = "cart_item_id")
-//    )
-//    private List<CartItem> cartItems;
+    @ManyToMany
+    @JoinTable(
+            name = "cart_cart_item",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "cart_item_id")
+    )
+    private List<CartItem> cartItems;
 
-    @ElementCollection
-    private Map<Long,Integer> productId;
+//    @ElementCollection
+//    private Map<Long,Integer> productId;
 }
