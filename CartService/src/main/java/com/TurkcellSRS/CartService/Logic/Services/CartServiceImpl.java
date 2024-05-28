@@ -8,6 +8,7 @@ import com.TurkcellSRS.CartService.DTO.Request.CartCreateRequest;
 import com.TurkcellSRS.CartService.DTO.Response.CartCreateResponse;
 import com.TurkcellSRS.CartService.DTO.Response.CartProductsResponse;
 import com.TurkcellSRS.CartService.DTO.Response.CartResponse;
+import com.TurkcellSRS.CartService.DTO.Response.CartWithChars;
 import com.TurkcellSRS.CartService.Entity.Cart;
 import com.TurkcellSRS.CartService.Repository.CartRepository;
 import jakarta.transaction.Transactional;
@@ -61,6 +62,11 @@ public class CartServiceImpl {
     }
 
     //TODO Implement update cart items characteristics like for example quantity and 100 gb internet so every item should have characteristics like GB or MB
+
+    //This changes only effect the cart items not the product itself
+    public ResponseEntity<CartWithChars> updateCartItemsCharacteristics(Long cartId, Long productId){
+
+    }
 }
 
 
