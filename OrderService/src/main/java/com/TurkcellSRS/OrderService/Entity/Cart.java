@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,5 +24,5 @@ public class Cart {
 //    @ElementCollection
 //    private Map<Long,Double> products;
     @OneToMany
-    private Set<CartItem> cartItems;
+    private Set<CartItem> cartItems = new HashSet<>();
 }

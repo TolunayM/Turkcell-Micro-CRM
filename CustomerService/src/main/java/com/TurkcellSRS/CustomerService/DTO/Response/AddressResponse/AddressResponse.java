@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddressResponse {
+    private Long id;
     private String city;
     private String district;
     private String street;
