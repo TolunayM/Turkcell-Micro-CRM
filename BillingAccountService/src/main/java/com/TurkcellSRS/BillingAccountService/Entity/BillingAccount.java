@@ -15,13 +15,14 @@ public class BillingAccount {
     private Long id;
     private Long accountNumber;
     private Long customer;
+
+    // customers default address
     private Long address;
     private Long serviceAddress;
     private String name;
     private String type;
     private String description;
     private Boolean status;
-    
-    @OneToMany
-    private Set<AccountCart> accountCarts;
+
+    private Long cartId;
 }

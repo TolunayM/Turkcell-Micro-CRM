@@ -61,12 +61,13 @@ public class CartServiceImpl {
         return ResponseEntity.ok(modelMapper.map(cart, CartProductsResponse.class));
     }
 
+    public ResponseEntity<CartResponse> getCartByCustomerId(Long customerId) {
+        var cart = cartRepository.findByCustomerId(customerId);
+        return ResponseEntity.ok(modelMapper.map(cart, CartResponse.class));
+    }
+
     //TODO Implement update cart items characteristics like for example quantity and 100 gb internet so every item should have characteristics like GB or MB
 
-    //This changes only effect the cart items not the product itself
-    public ResponseEntity<CartWithChars> updateCartItemsCharacteristics(Long cartId, Long productId){
-
-    }
 }
 
 

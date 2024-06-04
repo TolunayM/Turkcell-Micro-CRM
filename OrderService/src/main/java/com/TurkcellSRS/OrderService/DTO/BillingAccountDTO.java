@@ -1,10 +1,11 @@
-package com.TurkcellSRS.BillingAccountService.DTO;
+package com.TurkcellSRS.OrderService.DTO;
 
 
 import lombok.Data;
 
 @Data
-public class BillingAccountResponse {
+public class BillingAccountDTO {
+
     private Long customer;
     private Long address;
     private Long accountNumber;

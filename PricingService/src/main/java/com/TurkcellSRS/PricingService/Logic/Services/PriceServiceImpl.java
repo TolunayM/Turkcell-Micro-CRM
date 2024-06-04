@@ -27,7 +27,7 @@ public class PriceServiceImpl {
                 System.out.println("Product has characteristics");
                 System.out.println(productClient.getProductById(productId).getCharacteristics().keySet());
                 totalPrice += product.getCharacteristics().get("sms") * 10;
-                totalPrice += product.getCharacteristics().get("call") * 20;
+                totalPrice += product.getCharacteristics().get("dakika") * 20;
                 totalPrice += product.getCharacteristics().get("internet") * 30;
                 return totalPrice;
             }

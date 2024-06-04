@@ -21,6 +21,10 @@ public class BillingAccountService {
     private final ModelMapper modelMapper;
     private final CustomerClient customerClient;
 
+    //on frontend there will be a page for default billing account
+
+
+
     public ResponseEntity<BillingAccountResponse> getBillingAccount(Long id) {
         var billingAccount = billingAccountRepository.findById(id);
 

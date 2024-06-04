@@ -18,6 +18,10 @@ public class CartController {
     private final CartServiceImpl cartService;
 
 
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<CartResponse> getCartByCustomerId(@PathVariable Long customerId){
+        return cartService.getCartByCustomerId(customerId);
+    }
 
     @PostMapping("/{customerId}")
     public ResponseEntity<CartCreateResponse> createCart(@PathVariable Long customerId){
