@@ -83,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
         cartRepository.save(cartDao);
 
 
-        cartRepository.save(cartDao);
+//        cartRepository.save(cartDao);
         order.setOrderAdress(customer.getDefaultAddress());
         order.setOrderCart(cartDao);
         System.out.println(order);
