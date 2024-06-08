@@ -8,7 +8,9 @@ import java.util.Date;
 @Data
 public class UpdateCustomerRequest {
 
-    @Digits(integer = 11, fraction = 0) @Positive
+    @Positive
+    @NotBlank(message = "This field is required")
+    @Size(min = 11,max = 11)
     private Long nationalityId;
 
     @NotBlank(message = "This field is required") @Size(max=50)

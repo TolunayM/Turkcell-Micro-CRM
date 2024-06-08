@@ -9,6 +9,7 @@ import com.TurkcellSRS.CustomerService.DTO.Response.AddressResponse.UpdateAddres
 import com.TurkcellSRS.CustomerService.Entity.Address;
 import com.TurkcellSRS.CustomerService.Entity.Customer;
 import com.TurkcellSRS.CustomerService.Logic.Contract.AddressService;
+import com.TurkcellSRS.CustomerService.Logic.Rules.AddressBusinessRules;
 import com.TurkcellSRS.CustomerService.Repository.AddressRepository;
 import com.TurkcellSRS.CustomerService.Repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
     private final ModelMapper modelMapper;
     private final CustomerRepository customerRepository;
+    private final AddressBusinessRules addressBusinessRules;
 
     @Override
     public ResponseEntity<AddAddressResponse> addAddress(AddAddressRequest addAddressRequest) {
@@ -54,8 +56,12 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public ResponseEntity<String> deleteAddress(Long addressId) {
-        if(addressRepository.existsById(addressId)){
+    public ResponseEntity<String> deleteAddress(Long customerId,Long addressId) {
+
+
+        if(addressRepository.existsById(addressId) && addressRepository.findById(addressId).get().getCustomer().getId().equals(customerId)){
+            addressBusinessRules.checkIsAddressLast(customerId);
+            addressBusinessRules.checkIsDefaultAddress(customerId, addressId);
             addressRepository.deleteById(addressId);
             return ResponseEntity.ok("Address deleted successfully");
         }

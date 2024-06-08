@@ -13,6 +13,7 @@ import com.TurkcellSRS.CustomerService.Repository.CustomerRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -50,10 +51,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
-    public ResponseEntity<List<SearchCustomerResponse>> searchByVariables(Long nationalityId, Long id, String firstName, String middleName, String lastName) {
+    public ResponseEntity<List<SearchCustomerResponse>> searchByVariables(Long nationalityId, Long id, String firstName, String middleName, String lastName, Pageable pageable) {
 
-        customerBusinessRules.checkCustomerIsExist(nationalityId,id, firstName,middleName,lastName);
-        return ResponseEntity.ok(customerRepository.findByFilter(nationalityId, id, firstName, middleName, lastName));
+        customerBusinessRules.checkCustomerIsExist(nationalityId,id, firstName,middleName,lastName,pageable);
+        return ResponseEntity.ok(customerRepository.findByFilter(nationalityId, id, firstName, middleName, lastName, pageable));
     }
 
 
@@ -66,8 +67,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public ResponseEntity<String> deleteCustomer(Long id) {
-        //TODO Check if the customer has active order or product ?
         customerBusinessRules.checkCustomerIsExist(id);
+        customerBusinessRules.checkCustomerOrderIsExist(id);
         customerRepository.deleteById(id);
         return ResponseEntity.ok("Customer deleted successfully");
     }

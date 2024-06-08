@@ -14,6 +14,7 @@ public class Order {
 
     private Long customerId;
     private Long billingAccountId;
+    private String status;
     @OneToOne
     private OrderAdress orderAdress;
 

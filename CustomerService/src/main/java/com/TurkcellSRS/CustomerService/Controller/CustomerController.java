@@ -9,6 +9,8 @@ import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.UpdateCusto
 import com.TurkcellSRS.CustomerService.Logic.Services.CustomerServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ public class CustomerController {
 
     private final CustomerServiceImpl customerService;
 
+    private final int MAX_PAGE_SIZE = 10;
 
 
     @GetMapping("/search")
@@ -31,13 +34,20 @@ public class CustomerController {
                                                                                   @RequestParam(required = false, defaultValue = " ") Long id,
                                                                                   @RequestParam(required = false, defaultValue = " ") String firstName,
                                                                                   @RequestParam(required = false, defaultValue =  " ") String middleName,
-                                                                                  @RequestParam(required = false, defaultValue = " ") String lastName){
-        return customerService.searchByVariables(nationalityId, id, firstName, middleName, lastName);
+                                                                                  @RequestParam(required = false, defaultValue = " ") String lastName,
+                                                                                  @RequestParam(defaultValue = "0") int page){
+        Pageable pageable = PageRequest.of(page, MAX_PAGE_SIZE);
+        return customerService.searchByVariables(nationalityId, id, firstName, middleName, lastName, pageable);
     }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<CustomerInfoResponse> getCustomer(@PathVariable Long id){
         return customerService.getCustomers(id);
     }
+
+
+
 
     @PostMapping
     public ResponseEntity<AddCustomerResponse> addCustomer(@Valid @RequestBody  AddCustomerRequest addCustomerRequest){

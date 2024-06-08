@@ -1,6 +1,7 @@
 package turkcellsrs.authservice.Controller;
 
 
+import jakarta.validation.Valid;
 import jakarta.ws.rs.Path;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,12 @@ public class AuthController {
 
 
     @PostMapping("register")
-    public ResponseEntity<UserResponse> addUser(@RequestBody UserRequest user){
-        return authService.addUser(user);
+    public ResponseEntity<UserResponse> addUser(@Valid @RequestBody UserRequest userRequest){
+        return authService.addUser(userRequest);
     }
 
     @PostMapping("/token")
-    public String getToken(@RequestBody UserRequest userRequest){
+    public String getToken(@Valid @RequestBody UserRequest userRequest){
         System.out.println("Token request");
 
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword()));

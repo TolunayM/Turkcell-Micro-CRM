@@ -12,8 +12,9 @@ import java.util.Date;
 @Data
 public class AddCustomerRequest {
 
-    @Digits(integer = 11, fraction = 0) @Positive
-    @NotNull(message = "This field is required")
+    @Positive
+    @NotBlank(message = "This field is required")
+    @Size(min = 11,max = 11)
     private Long nationalityId;
 
     @NotBlank(message = "This field is required") @Size(max=50)

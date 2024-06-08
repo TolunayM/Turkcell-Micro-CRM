@@ -14,7 +14,7 @@ import java.util.List;
 public interface AddressService {
     ResponseEntity<AddAddressResponse> addAddress(AddAddressRequest addAddressRequest);
     ResponseEntity<UpdateAddressResponse> updateAddress(Long addressId,UpdateAddressRequest updateAddressRequest);
-    ResponseEntity<String> deleteAddress(Long addressId);
+    ResponseEntity<String> deleteAddress(Long custoemerId, Long addressId);
     ResponseEntity<AddressResponse> getAddress(Long addressId);
     public ResponseEntity<List<AddressResponse>> getAddressesByCustomerId(Long customerId);
 }

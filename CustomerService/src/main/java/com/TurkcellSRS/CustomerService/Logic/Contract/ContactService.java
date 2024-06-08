@@ -1,7 +1,6 @@
 package com.TurkcellSRS.CustomerService.Logic.Contract;
 
 import com.TurkcellSRS.CustomerService.DTO.Requests.ContactRequests.AddContactRequest;
-import com.TurkcellSRS.CustomerService.DTO.Requests.ContactRequests.ContactRequest;
 import com.TurkcellSRS.CustomerService.DTO.Requests.ContactRequests.UpdateContactRequest;
 import com.TurkcellSRS.CustomerService.DTO.Response.ContactResponse.AddContactResponse;
 import com.TurkcellSRS.CustomerService.DTO.Response.ContactResponse.ContactResponse;

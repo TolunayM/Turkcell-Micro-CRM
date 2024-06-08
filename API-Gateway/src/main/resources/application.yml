@@ -33,6 +33,8 @@ spring:
           uri: lb://order-service
           predicates:
             - Path=/api/v1/orders/**
+          filters:
+            - AuthNFilter
 
         - id: auth-service
           uri: lb://auth-service

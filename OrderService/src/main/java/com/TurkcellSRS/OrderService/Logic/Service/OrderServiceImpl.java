@@ -8,6 +8,7 @@ import com.TurkcellSRS.OrderService.Client.ProductClient;
 import com.TurkcellSRS.OrderService.Config.CartMapper;
 import com.TurkcellSRS.OrderService.Config.OrderMapper;
 import com.TurkcellSRS.OrderService.DTO.Request.OrderRequest;
+import com.TurkcellSRS.OrderService.DTO.Request.OrderStatusRequest;
 import com.TurkcellSRS.OrderService.DTO.Response.OrderResponse;
 import com.TurkcellSRS.OrderService.Entity.Cart;
 import com.TurkcellSRS.OrderService.Entity.CartItem;
@@ -22,6 +23,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -87,6 +89,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderAdress(customer.getDefaultAddress());
         order.setOrderCart(cartDao);
         System.out.println(order);
+        order.setStatus("ACTIVE");
         var savedOrder = orderRepository.save(order);
         System.out.println(savedOrder);
 
@@ -95,4 +98,25 @@ public class OrderServiceImpl implements OrderService {
         //cart = billing account cart
     }
 
+    public boolean checkOrderByCustomerId(Long customerId) {
+
+        //find by status active
+        boolean status = false;
+        List<OrderStatusRequest> orders = orderRepository.findAllByCustomerId(customerId);
+
+        for(OrderStatusRequest order : orders){
+            if(order.getStatus().equals("ACTIVE")){
+                status = true;
+                break;
+            }
+        }
+        return status;
+    }
+
+    public String changeOrderStatus(Long orderId, String status) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        order.setStatus(status);
+        orderRepository.save(order);
+        return "Order " + orderId + " status changed to " + status;
+    }
 }

@@ -10,7 +10,7 @@ import lombok.Data;
 public class AddContactRequest {
 
     @NotBlank(message = "This field is required")
-    @Email
+    @Email(message = "Email should be valid")
     private String email;
 
     @NotNull(message = "This field is required")

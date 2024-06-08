@@ -31,7 +31,7 @@ public class Customer {
     private Date birthDate;
     private String gender;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address defaultAddress;
 
@@ -39,10 +39,10 @@ public class Customer {
 //    private Set<Account> account;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     private List<Address> addresses;
 
     @JsonManagedReference
-    @OneToOne(mappedBy = "customer")
+    @OneToOne(mappedBy = "customer",cascade = CascadeType.ALL)
     private Contact contact;
 }
