@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContactController {
 
-    private final ContactServiceImpl contactService;
+    private final ContactService contactService;
 
 
 

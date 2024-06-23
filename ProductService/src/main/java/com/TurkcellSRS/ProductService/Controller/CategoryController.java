@@ -3,6 +3,7 @@ package com.TurkcellSRS.ProductService.Controller;
 
 import com.TurkcellSRS.ProductService.DTO.Response.CategoryResponse;
 import com.TurkcellSRS.ProductService.DTO.Response.CategoryWithProductsResponse;
+import com.TurkcellSRS.ProductService.Logic.Contract.CategoryService;
 import com.TurkcellSRS.ProductService.Logic.Services.CategoryServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategoryServiceImpl categoryService;
+    private final CategoryService categoryService;
 
 
     @GetMapping("/{id}")

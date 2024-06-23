@@ -6,6 +6,7 @@ import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.AddCustomer
 import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.CustomerInfoResponse;
 import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.SearchCustomerResponse;
 import com.TurkcellSRS.CustomerService.DTO.Response.CustomerResponse.UpdateCustomerResponse;
+import com.TurkcellSRS.CustomerService.Logic.Contract.CustomerService;
 import com.TurkcellSRS.CustomerService.Logic.Services.CustomerServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private final CustomerServiceImpl customerService;
+    private final CustomerService customerService;
 
     private final int MAX_PAGE_SIZE = 10;
 

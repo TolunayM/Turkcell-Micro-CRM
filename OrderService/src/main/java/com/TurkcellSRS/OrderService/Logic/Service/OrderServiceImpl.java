@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
-    private final BillingAccountClient billingAccountClient;
     private final CustomerClient customerClient;
     private final CartClient cartClient;
     private final OrderAddressRepository orderAddressRepository;

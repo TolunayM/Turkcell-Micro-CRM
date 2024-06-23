@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AddressController {
 
-    private final AddressServiceImpl addressService;
+    private final AddressService addressService;
 
 
     @PostMapping

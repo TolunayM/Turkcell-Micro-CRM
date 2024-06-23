@@ -2,6 +2,7 @@ package com.TurkcellSRS.PricingService.Controller;
 
 
 import com.TurkcellSRS.PricingService.DTO.CartProductsDTO;
+import com.TurkcellSRS.PricingService.Logic.Contract.PriceService;
 import com.TurkcellSRS.PricingService.Logic.Services.PriceServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PriceController {
 
 
-    private final PriceServiceImpl priceService;
+    private final PriceService priceService;
 
 
     @GetMapping("/{cartId}")

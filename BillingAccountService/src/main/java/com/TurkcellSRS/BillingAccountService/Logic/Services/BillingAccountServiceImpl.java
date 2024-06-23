@@ -1,9 +1,9 @@
 package com.TurkcellSRS.BillingAccountService.Logic.Services;
 
-import com.TurkcellSRS.BillingAccountService.Client.CustomerClient;
 import com.TurkcellSRS.BillingAccountService.DTO.BillingAccountRequest;
 import com.TurkcellSRS.BillingAccountService.DTO.BillingAccountResponse;
 import com.TurkcellSRS.BillingAccountService.Entity.BillingAccount;
+import com.TurkcellSRS.BillingAccountService.Logic.Contract.BillingAccountService;
 import com.TurkcellSRS.BillingAccountService.Logic.Rules.AccountBusinessRules;
 import com.TurkcellSRS.BillingAccountService.Repository.BillingAccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BillingAccountService {
+public class BillingAccountServiceImpl implements BillingAccountService {
 
     private final BillingAccountRepository billingAccountRepository;
     private final ModelMapper modelMapper;

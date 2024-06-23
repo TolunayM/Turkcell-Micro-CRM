@@ -23,7 +23,6 @@ public class ContactServiceImpl implements ContactService {
 
     private final ContactRepository contactRepository;
     private final ModelMapper modelMapper;
-    private final CustomerRepository customerRepository;
 
 
     public ResponseEntity<AddContactResponse> addContact(AddContactRequest addContactRequest){

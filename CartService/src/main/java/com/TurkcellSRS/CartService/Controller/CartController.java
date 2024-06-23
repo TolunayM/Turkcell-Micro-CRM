@@ -4,6 +4,7 @@ package com.TurkcellSRS.CartService.Controller;
 import com.TurkcellSRS.CartService.DTO.Response.CartCreateResponse;
 import com.TurkcellSRS.CartService.DTO.Response.CartProductsResponse;
 import com.TurkcellSRS.CartService.DTO.Response.CartResponse;
+import com.TurkcellSRS.CartService.Logic.Contract.CartService;
 import com.TurkcellSRS.CartService.Logic.Services.CartServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class CartController {
 
 
-    private final CartServiceImpl cartService;
+    private final CartService cartService;
 
 
     @GetMapping("/customer/{customerId}")

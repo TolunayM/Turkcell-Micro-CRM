@@ -81,31 +81,3 @@ public class CartServiceImpl implements CartService {
     //TODO Implement update cart items characteristics like for example quantity and 100 gb internet so every item should have characteristics like GB or MB
 
 }
-
-
-
-// ----------------------------------------
-
-
-//        var cart = cartRepository.findById(cartId);
-//        ProductDTO product = productClient.getProductById(productId);
-//        CartItem cartItem = modelMapper.map(product, CartItem.class);
-//        cartItem.setTotalPrice(totalPrice(cartItem, quantity));
-//        System.out.println(product.getPrice() * quantity);
-//        cartItem.setQuantity(quantity);
-//        if(!(cartItemRepository.existsById(cartItem.getId()))){
-//            cartItemRepository.save(cartItem);
-//            System.out.println("Product saved");
-//        }else{
-//            System.out.println("Product already exists");
-//            cartItem = cartItemRepository.findById(productId).get();
-//        }
-//
-//        if(cart.isPresent()) {
-//            cart.get().getCartItems().add(cartItem);
-//        }else{
-//            System.out.println("Cart not found");
-//        }
-//        System.out.println("Cart saved");
-//
-//        return ResponseEntity.ok(modelMapper.map(cart, CartResponse.class));

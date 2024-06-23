@@ -4,12 +4,13 @@ package com.TurkcellSRS.PricingService.Logic.Services;
 import com.TurkcellSRS.PricingService.Client.CartClient;
 import com.TurkcellSRS.PricingService.Client.ProductClient;
 import com.TurkcellSRS.PricingService.DTO.CartProductsDTO;
+import com.TurkcellSRS.PricingService.Logic.Contract.PriceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PriceServiceImpl {
+public class PriceServiceImpl implements PriceService {
 
     private final CartClient cartClient;
     private final ProductClient productClient;

@@ -3,6 +3,7 @@ package com.TurkcellSRS.ProductService.Controller;
 import com.TurkcellSRS.ProductService.DTO.Request.ProductRequest;
 import com.TurkcellSRS.ProductService.DTO.Response.ProductResponse;
 import com.TurkcellSRS.ProductService.DTO.Response.ProductResponseWithCategory;
+import com.TurkcellSRS.ProductService.Logic.Contract.ProductService;
 import com.TurkcellSRS.ProductService.Logic.Services.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductServiceImpl productService;
+    private final ProductService productService;
 
 
     @GetMapping("/category/{categoryId}")
