@@ -12,7 +12,6 @@ import java.util.List;
 
 public interface CustomerService {
     ResponseEntity<AddCustomerResponse> addCustomer(AddCustomerRequest addCustomerRequest);
-    ResponseEntity<SearchCustomerResponse> searchCustomer(SearchCustomerRequest customerRequest);
     ResponseEntity<CustomerInfoResponse> getCustomers(Long id);
     ResponseEntity<List<SearchCustomerResponse>> searchByVariables(Long nationalityId, Long id, String firstName, String middleName, String lastName, Pageable pageable);
     ResponseEntity<UpdateCustomerResponse> updateCustomer(UpdateCustomerRequest updateCustomerRequest);

@@ -7,6 +7,8 @@ import com.TurkcellSRS.OrderService.Client.CustomerClient;
 import com.TurkcellSRS.OrderService.Client.ProductClient;
 import com.TurkcellSRS.OrderService.Config.CartMapper;
 import com.TurkcellSRS.OrderService.Config.OrderMapper;
+import com.TurkcellSRS.OrderService.DTO.ProductDTO;
+import com.TurkcellSRS.OrderService.DTO.Request.OrderBillingRequest;
 import com.TurkcellSRS.OrderService.DTO.Request.OrderRequest;
 import com.TurkcellSRS.OrderService.DTO.Request.OrderStatusRequest;
 import com.TurkcellSRS.OrderService.DTO.Response.OrderResponse;
@@ -46,7 +48,6 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = modelMapper.map(orderRequest, Order.class);
 
-        var billingAccount = billingAccountClient.getBillingAccount(orderRequest.getBillingAccountId());
         var customer = customerClient.getCustomer(orderRequest.getCustomerId());
         var cart = cartClient.getCartByCustomerId(orderRequest.getCustomerId());
         var cartDao = modelMapper.map(cart, Cart.class);
@@ -56,19 +57,6 @@ public class OrderServiceImpl implements OrderService {
         var orderAdress = customer.getDefaultAddress();
         orderAddressRepository.save(orderAdress);
 
-//        for(Long entry : cart.getProductId().keySet()){
-//            System.out.println("The product ID is: " + entry + " and price of that product is " + cart.getProductId().get(entry));
-////            cartDao.getCartItems().add(modelMapper.map(cart.getProductId().get(entry), CartItem.class));
-//            cartDao.setCartItems(cart.getProductId().keySet().stream().map(
-//                    key -> {
-//                        CartItem cartItem = new CartItem();
-//                        cartItem.setId(key);
-//                        cartItem.setPrice(1000.0);
-//                        return cartItem;
-//                    }
-//            ).collect(Collectors.toSet()));
-//
-//        }
 
 
         for(Long productId : cart.getProductId().keySet()){
@@ -85,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
         cartRepository.save(cartDao);
 
 
-//        cartRepository.save(cartDao);
+
         order.setOrderAdress(customer.getDefaultAddress());
         order.setOrderCart(cartDao);
         System.out.println(order);
@@ -94,8 +82,7 @@ public class OrderServiceImpl implements OrderService {
         System.out.println(savedOrder);
 
         return ResponseEntity.ok(modelMapper.map(savedOrder, OrderResponse.class));
-        //address = billing account address
-        //cart = billing account cart
+
     }
 
     public boolean checkOrderByCustomerId(Long customerId) {
@@ -113,10 +100,37 @@ public class OrderServiceImpl implements OrderService {
         return status;
     }
 
+    public boolean checkOrderByBillingAccountId(Long billingAccountId) {
+
+        //find by status active
+        boolean status = false;
+        List<OrderBillingRequest> orders = orderRepository.findAllByBillingAccountId(billingAccountId);
+
+        for(OrderBillingRequest order : orders){
+            if(order.getStatus().equals("ACTIVE")){
+                status = true;
+                break;
+            }
+        }
+        return status;
+    }
+
     public String changeOrderStatus(Long orderId, String status) {
         Order order = orderRepository.findById(orderId).orElseThrow();
         order.setStatus(status);
         orderRepository.save(order);
         return "Order " + orderId + " status changed to " + status;
+    }
+
+    public ResponseEntity<List<ProductDTO>> getProductsByBillingAccountId(Long billingAccountId) {
+        Order order = orderRepository.findByBillingAccountId(billingAccountId);
+        Cart cart = order.getOrderCart();
+        List<Long> productIds = cart.getCartItems().stream().map(CartItem::getId).toList();
+        List<ProductDTO> products = productIds.stream()
+                .map(productClient::getProductById)
+                .toList();
+
+        return ResponseEntity.ok(products);
+
     }
 }

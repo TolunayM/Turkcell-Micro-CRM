@@ -31,7 +31,6 @@ public class AddressServiceImpl implements AddressService {
     public ResponseEntity<AddAddressResponse> addAddress(AddAddressRequest addAddressRequest) {
         var saveAddress = modelMapper.map(addAddressRequest, Address.class);
 
-        // Find the Customer by its ID
         //TODO Change this to business rule
         //TODO Change this to customerDTO
         Customer customer = customerRepository.findById(addAddressRequest.getCustomerId())
@@ -41,6 +40,9 @@ public class AddressServiceImpl implements AddressService {
         saveAddress.setCustomer(customer);
 
         var savedAddress = addressRepository.save(saveAddress);
+
+        customer.setDefaultAddress(saveAddress);
+        customerRepository.save(customer);
         return ResponseEntity.ok(modelMapper.map(savedAddress, AddAddressResponse.class));
     }
 

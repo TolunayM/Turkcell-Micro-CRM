@@ -2,15 +2,12 @@ package com.ApiGateway.APIGateway.Filter;
 
 
 import com.ApiGateway.APIGateway.Util.JwtUtil;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
 
 @Component
 public class AuthNFilter extends AbstractGatewayFilterFactory<AuthNFilter.Config> {
@@ -36,9 +33,8 @@ public class AuthNFilter extends AbstractGatewayFilterFactory<AuthNFilter.Config
 
             String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).getFirst();
 
-            // this could be a problem
-
             if(authHeader != null && authHeader.startsWith("Bearer ")) {
+                System.out.println("Auth Header: " + authHeader);
                 authHeader = authHeader.substring(7);
             }
 

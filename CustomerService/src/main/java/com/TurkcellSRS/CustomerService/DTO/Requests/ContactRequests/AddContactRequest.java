@@ -1,8 +1,5 @@
 package com.TurkcellSRS.CustomerService.DTO.Requests.ContactRequests;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 

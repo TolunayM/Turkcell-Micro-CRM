@@ -31,6 +31,7 @@ public class AuthService {
     }
 
     public String validateToken(String token) {
+
         jwtService.validateToken(token);
         return "Token is valid";
     }

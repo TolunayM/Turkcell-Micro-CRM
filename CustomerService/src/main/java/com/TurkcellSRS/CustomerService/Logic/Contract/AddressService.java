@@ -16,5 +16,5 @@ public interface AddressService {
     ResponseEntity<UpdateAddressResponse> updateAddress(Long addressId,UpdateAddressRequest updateAddressRequest);
     ResponseEntity<String> deleteAddress(Long custoemerId, Long addressId);
     ResponseEntity<AddressResponse> getAddress(Long addressId);
-    public ResponseEntity<List<AddressResponse>> getAddressesByCustomerId(Long customerId);
+    ResponseEntity<List<AddressResponse>> getAddressesByCustomerId(Long customerId);
 }

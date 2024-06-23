@@ -29,8 +29,19 @@ public class OrderController {
     }
 
 
+    @GetMapping("/checkOrder/b/{billingAccountId}")
+    public boolean checkOrderByBillingAccountId(@PathVariable Long billingAccountId) {
+        return orderService.checkOrderByBillingAccountId(billingAccountId);
+    }
+
+
     @PutMapping
     public String changeOrderStatus(@RequestParam Long orderId, @RequestParam String status){
         return orderService.changeOrderStatus(orderId, status);
+    }
+
+    @GetMapping("/products/{orderId}")
+    public ResponseEntity<?> getProductsByOrderId(@PathVariable Long orderId){
+        return orderService.getProductsByBillingAccountId(orderId);
     }
 }

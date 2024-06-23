@@ -35,7 +35,6 @@ spring:
             - Path=/api/v1/orders/**
           filters:
             - AuthNFilter
-
         - id: auth-service
           uri: lb://auth-service
           predicates:

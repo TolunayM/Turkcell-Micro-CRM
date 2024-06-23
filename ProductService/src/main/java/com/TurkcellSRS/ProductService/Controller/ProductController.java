@@ -18,6 +18,18 @@ public class ProductController {
     private final ProductServiceImpl productService;
 
 
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ProductResponse>> getProductsByCategory(@PathVariable Long categoryId) {
+        return productService.getAllProductsByCategory(categoryId);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductResponse>> searchProductByVariables(@RequestParam(required = false, defaultValue = " ") Long categoryId,
+                                                                          @RequestParam(required = false, defaultValue = " ") String name,
+                                                                          @RequestParam(required = false, defaultValue = " ") Long id){
+        return productService.searchByVariables(categoryId,id, name);
+    }
+
     @GetMapping
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
         return productService.getAllProducts();

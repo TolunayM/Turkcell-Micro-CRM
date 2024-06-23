@@ -35,8 +35,20 @@ public class CartController {
         return cartService.addItemToCart(cartId, productId,quantity);
     }
 
-    @GetMapping("/{cartId}")
+    @GetMapping("/items/{cartId}")
     public ResponseEntity<CartProductsResponse> getCartProducts(@PathVariable Long cartId){
         return cartService.getCartProducts(cartId);
+    }
+
+    @DeleteMapping("/{cartId}")
+    public ResponseEntity<String> deleteCart(@PathVariable Long cartId){
+        return cartService.deleteCart(cartId);
+    }
+
+
+    @DeleteMapping("/{cartId}/product/{productId}")
+    public ResponseEntity<CartResponse> deleteProductFromCart(@PathVariable Long cartId,
+                                                              @PathVariable Long productId){
+        return cartService.deleteProductFromCart(cartId,productId);
     }
 }

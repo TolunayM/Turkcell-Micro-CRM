@@ -1,6 +1,7 @@
 package com.TurkcellSRS.OrderService.Repository;
 
 
+import com.TurkcellSRS.OrderService.DTO.Request.OrderBillingRequest;
 import com.TurkcellSRS.OrderService.DTO.Request.OrderStatusRequest;
 import com.TurkcellSRS.OrderService.Entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,11 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
     @Query("SELECT new com.TurkcellSRS.OrderService.DTO.Request.OrderStatusRequest(o.customerId, o.status) " +
             "FROM Order o WHERE o.customerId = :customerId")
     List<OrderStatusRequest> findAllByCustomerId(Long customerId);
+
+
+    @Query("SELECT new com.TurkcellSRS.OrderService.DTO.Request.OrderBillingRequest(o.billingAccountId, o.status) " +
+            "FROM Order o WHERE o.billingAccountId = :billingAccountId")
+    List<OrderBillingRequest> findAllByBillingAccountId(Long billingAccountId);
+
+    Order findByBillingAccountId(Long billingAccountId);
 }

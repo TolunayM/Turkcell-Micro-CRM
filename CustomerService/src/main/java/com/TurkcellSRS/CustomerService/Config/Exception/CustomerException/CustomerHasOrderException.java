@@ -1,6 +1,5 @@
 package com.TurkcellSRS.CustomerService.Config.Exception.CustomerException;
 
-import jdk.jfr.StackTrace;
 
 public class CustomerHasOrderException extends RuntimeException{
 

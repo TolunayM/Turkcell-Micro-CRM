@@ -30,7 +30,6 @@ public class AddressController {
         return addressService.addAddress(addAddressRequest);
     }
 
-    //TODO This can be transferred to customer controller
     @GetMapping("/customers/{customerId}")
     public ResponseEntity<List<AddressResponse>> getAddressesByCustomerId(@PathVariable Long customerId) {
         return addressService.getAddressesByCustomerId(customerId);

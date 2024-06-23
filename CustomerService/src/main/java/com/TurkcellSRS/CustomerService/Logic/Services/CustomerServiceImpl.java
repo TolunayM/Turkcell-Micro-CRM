@@ -41,15 +41,6 @@ public class CustomerServiceImpl implements CustomerService {
         return ResponseEntity.ok(modelMapper.map(savedCustomer, AddCustomerResponse.class));
     }
 
-    @Override
-    public ResponseEntity<SearchCustomerResponse> searchCustomer(SearchCustomerRequest customerRequest) {
-//
-//        var searchCustomer = modelMapper.map(customerRequest, Customer.class);
-//        var customer = customerRepository.searchCustomer(searchCustomer);
-//        return ResponseEntity.ok(modelMapper.map(customer, SearchCustomerResponse.class));
-        return null;
-    }
-
 
     public ResponseEntity<List<SearchCustomerResponse>> searchByVariables(Long nationalityId, Long id, String firstName, String middleName, String lastName, Pageable pageable) {
 

@@ -38,6 +38,25 @@ public class ProductServiceImpl implements ProductService {
                 .map(product -> modelMapper.map(product, ProductResponse.class)).toList());
     }
 
+    @Override
+    public ResponseEntity<List<ProductResponse>> getAllProductsByCategory(Long categoryId) {
+        return ResponseEntity.ok(productRepository
+                .findAllByCategoryId(categoryId)
+                .stream()
+                .map(product -> modelMapper.map(product, ProductResponse.class)).toList());
+    }
+
+
+    public ResponseEntity<List<ProductResponse>> searchByVariables(Long categoryId, Long id, String name) throws RuntimeException{
+        try{
+            return ResponseEntity.ok(productRepository.findByFilter(categoryId, id, name));
+        }catch (Exception e){
+            throw new RuntimeException("There is no product matching the information you entered. Please check.");
+        }
+    }
+
+
+
     public ResponseEntity<ProductResponse> createProduct(ProductRequest productRequest) {
         var product = modelMapper.map(productRequest, Product.class);
         var savedProduct = productRepository.save(product);
@@ -46,7 +65,6 @@ public class ProductServiceImpl implements ProductService {
 
     public ResponseEntity<ProductResponse> assignCategory(Long productId, Long categoryId){
 
-        //TODO MAPPER AND CHECK INFINITE LOOP
         var product = productRepository.findById(productId);
         var category = categoryRepository.findById(categoryId);
         if (product.isPresent() && category.isPresent()) {

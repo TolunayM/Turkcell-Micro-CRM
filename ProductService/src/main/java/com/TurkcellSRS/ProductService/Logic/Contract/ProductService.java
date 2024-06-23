@@ -11,4 +11,5 @@ public interface ProductService {
 
     ResponseEntity<ProductResponseWithCategory> getProductById(Long id);
     ResponseEntity<List<ProductResponse>> getAllProducts();
+    ResponseEntity<List<ProductResponse>> getAllProductsByCategory(Long categoryId);
 }

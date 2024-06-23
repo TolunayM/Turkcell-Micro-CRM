@@ -2,10 +2,13 @@ package com.TurkcellSRS.BillingAccountService.Controller;
 
 
 import com.TurkcellSRS.BillingAccountService.Client.CustomerClient;
+import com.TurkcellSRS.BillingAccountService.Config.Pagination.Page;
 import com.TurkcellSRS.BillingAccountService.DTO.BillingAccountRequest;
 import com.TurkcellSRS.BillingAccountService.DTO.BillingAccountResponse;
 import com.TurkcellSRS.BillingAccountService.Logic.Services.BillingAccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +35,15 @@ public class BillingAccountController {
     }
 
     @GetMapping("/customer/{id}")
-    public ResponseEntity<List<BillingAccountResponse>> getBillingAccountByCustomer(@PathVariable Long id) {
-        return billingAccountService.getBillingAccountByCustomer(id);
+    public ResponseEntity<List<BillingAccountResponse>> getBillingAccountByCustomer(@RequestParam(defaultValue = "0") int page,
+                                                                                    @PathVariable Long id) {
+
+        Pageable pageable = PageRequest.of(page, Page.PAGE_SIZE);
+        return billingAccountService.getBillingAccountByCustomer(id,pageable);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteBillingAccount(@PathVariable Long id) {
+        return billingAccountService.deleteBillingAccount(id);
     }
 }

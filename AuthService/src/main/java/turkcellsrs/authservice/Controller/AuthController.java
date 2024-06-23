@@ -33,6 +33,7 @@ public class AuthController {
     public String getToken(@Valid @RequestBody UserRequest userRequest){
         System.out.println("Token request");
 
+
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword()));
 
         System.out.println("Authenticated");

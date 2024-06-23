@@ -12,8 +12,8 @@ public class RouteValidator {
 
 
 
-    // this are open for anyone
-    public static final List<String> openApiEndPoints = List.of(
+
+    public static final List<String> OPEN_ENDPOINTS = List.of(
             "api/v1/auth/register",
             "api/v1/auth/token",
             "eureka"
@@ -21,7 +21,7 @@ public class RouteValidator {
 
 
     public Predicate<ServerHttpRequest> isSecured =
-            request -> openApiEndPoints
+            request -> OPEN_ENDPOINTS
                     .stream()
                     .noneMatch(uri -> request
                             .getURI()

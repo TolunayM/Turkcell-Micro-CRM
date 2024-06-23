@@ -4,9 +4,11 @@ import com.TurkcellSRS.BillingAccountService.Client.CustomerClient;
 import com.TurkcellSRS.BillingAccountService.DTO.BillingAccountRequest;
 import com.TurkcellSRS.BillingAccountService.DTO.BillingAccountResponse;
 import com.TurkcellSRS.BillingAccountService.Entity.BillingAccount;
+import com.TurkcellSRS.BillingAccountService.Logic.Rules.AccountBusinessRules;
 import com.TurkcellSRS.BillingAccountService.Repository.BillingAccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +21,9 @@ public class BillingAccountService {
 
     private final BillingAccountRepository billingAccountRepository;
     private final ModelMapper modelMapper;
-    private final CustomerClient customerClient;
+    private final AccountBusinessRules accountBusinessRules;
 
     //on frontend there will be a page for default billing account
-
 
 
     public ResponseEntity<BillingAccountResponse> getBillingAccount(Long id) {
@@ -33,9 +34,9 @@ public class BillingAccountService {
     }
 
 
-    public ResponseEntity<List<BillingAccountResponse>> getBillingAccountByCustomer(Long id) {
+    public ResponseEntity<List<BillingAccountResponse>> getBillingAccountByCustomer(Long id , Pageable pageable) {
         List<BillingAccountResponse> customerBillingAccounts = new LinkedList<>();
-        var billingAccount = billingAccountRepository.findAllByCustomer(id);
+        var billingAccount = billingAccountRepository.findAllByCustomer(id,pageable);
         billingAccount.forEach(account -> {
             customerBillingAccounts.add(modelMapper.map(account, BillingAccountResponse.class));
         });
@@ -45,8 +46,16 @@ public class BillingAccountService {
 
     public ResponseEntity<BillingAccountResponse> createBillingAccount(BillingAccountRequest billingAccountRequest) {
         var billingAccount = modelMapper.map(billingAccountRequest, BillingAccount.class);
+        billingAccount.setName(String.valueOf(billingAccountRequest.getAccountNumber()));
         billingAccount = billingAccountRepository.save(billingAccount);
 
         return ResponseEntity.ok(modelMapper.map(billingAccount, BillingAccountResponse.class));
+    }
+
+
+    public ResponseEntity<String> deleteBillingAccount(Long id) {
+        accountBusinessRules.checkAccountOrderIsExist(id);
+        billingAccountRepository.deleteById(id);
+        return ResponseEntity.ok("Customer account deleted successfully");
     }
 }

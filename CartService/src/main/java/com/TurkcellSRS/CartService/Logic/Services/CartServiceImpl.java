@@ -10,6 +10,7 @@ import com.TurkcellSRS.CartService.DTO.Response.CartProductsResponse;
 import com.TurkcellSRS.CartService.DTO.Response.CartResponse;
 import com.TurkcellSRS.CartService.DTO.Response.CartWithChars;
 import com.TurkcellSRS.CartService.Entity.Cart;
+import com.TurkcellSRS.CartService.Logic.Contract.CartService;
 import com.TurkcellSRS.CartService.Repository.CartRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CartServiceImpl {
+public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
     private final ModelMapper modelMapper;
-    private final ProductClient productClient;
     private final PriceClient priceClient;
 
     public ResponseEntity<CartCreateResponse> createCart(Long customerId){
@@ -63,6 +63,18 @@ public class CartServiceImpl {
 
     public ResponseEntity<CartResponse> getCartByCustomerId(Long customerId) {
         var cart = cartRepository.findByCustomerId(customerId);
+        return ResponseEntity.ok(modelMapper.map(cart, CartResponse.class));
+    }
+
+    public ResponseEntity<String> deleteCart(Long cartId) {
+        cartRepository.deleteById(cartId);
+        return ResponseEntity.ok("Cart deleted");
+    }
+
+    public ResponseEntity<CartResponse> deleteProductFromCart(Long cartId, Long productId) {
+        var cart = cartRepository.findById(cartId);
+        cart.get().getProductId().remove(productId);
+        cartRepository.save(cart.get());
         return ResponseEntity.ok(modelMapper.map(cart, CartResponse.class));
     }
 

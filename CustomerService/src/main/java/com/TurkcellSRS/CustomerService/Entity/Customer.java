@@ -35,8 +35,6 @@ public class Customer {
     @JoinColumn(name = "address_id")
     private Address defaultAddress;
 
-//    @OneToMany(mappedBy = "customer")
-//    private Set<Account> account;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
