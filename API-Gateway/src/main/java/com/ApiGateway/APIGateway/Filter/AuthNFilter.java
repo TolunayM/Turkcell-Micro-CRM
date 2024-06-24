@@ -50,6 +50,5 @@ public class AuthNFilter extends AbstractGatewayFilterFactory<AuthNFilter.Config
     }
 
     public static class Config {
-        // Put configuration properties here
     }
 }
