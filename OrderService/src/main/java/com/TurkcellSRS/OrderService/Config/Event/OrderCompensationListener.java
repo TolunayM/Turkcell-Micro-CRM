@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderCompensationListener {
 
-    private final OrderRepository orderRepository;
+//    private final OrderRepository orderRepository;
 
     @KafkaListener(topics = "order-failed", groupId = "order-group")
     public void handleOrderFailedEvent(OrderFailedEvent orderFailedEvent) {
