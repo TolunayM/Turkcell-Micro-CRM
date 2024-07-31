@@ -4,6 +4,7 @@ import com.TurkcellSRS.CustomerService.Client.OrderClient;
 import com.TurkcellSRS.CustomerService.Config.Exception.CustomerException.CustomerAlreadyExistException;
 import com.TurkcellSRS.CustomerService.Config.Exception.CustomerException.CustomerHasOrderException;
 import com.TurkcellSRS.CustomerService.Config.Exception.CustomerException.CustomerNotFoundException;
+import com.TurkcellSRS.CustomerService.Config.Exception.CustomerException.NationalityIdDigitsNotCorrectException;
 import com.TurkcellSRS.CustomerService.Repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,11 @@ public class CustomerBusinessRules {
     private final CustomerRepository customerRepository;
     private final OrderClient orderClient;
 
+    public void checkNationalityIdDigits(Long nationalityId) {
+        if(nationalityId.toString().length() != 11){
+            throw new NationalityIdDigitsNotCorrectException();
+        }
+    }
     public void checkCustomerWithSameNationalityIdIsExist(Long nationalityId) {
         if (customerRepository.existByNationalityId(nationalityId) != null) {
             throw new CustomerAlreadyExistException();
