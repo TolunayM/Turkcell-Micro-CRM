@@ -23,6 +23,8 @@ import com.TurkcellSRS.OrderService.Repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderAddressRepository orderAddressRepository;
     private final CartRepository cartRepository;
     private final ProductClient productClient;
-
+    private final KafkaTemplate<String, String> kafkaTemplate;
     private final ModelMapper modelMapper;
     private final CartItemRepository cartItemRepository;
 
@@ -131,5 +133,22 @@ public class OrderServiceImpl implements OrderService {
 
         return ResponseEntity.ok(products);
 
+    }
+
+
+    @KafkaListener(topics = "prepare-topic", groupId = "order-group")
+    public void prepareOrder(String message) {
+        // Logic to prepare order
+        kafkaTemplate.send("prepare-response-topic", "OrderService:prepared");
+    }
+
+    @KafkaListener(topics = "commit-topic", groupId = "order-group")
+    public void commitOrder(String message) {
+        // Logic to commit order
+    }
+
+    @KafkaListener(topics = "rollback-topic", groupId = "order-group")
+    public void rollbackOrder(String message) {
+        // Logic to rollback order
     }
 }

@@ -16,6 +16,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final ModelMapper modelMapper;
     private final PriceClient priceClient;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     public ResponseEntity<CartCreateResponse> createCart(Long customerId){
         CartCreateRequest cart = new CartCreateRequest(customerId);
@@ -80,4 +83,24 @@ public class CartServiceImpl implements CartService {
 
     //TODO Implement update cart items characteristics like for example quantity and 100 gb internet so every item should have characteristics like GB or MB
 
+
+
+
+
+
+    @KafkaListener(topics = "prepare-topic", groupId = "cart-group")
+    public void prepareCart(String message) {
+        // Logic to prepare cart
+        kafkaTemplate.send("prepare-response-topic", "CartService:prepared");
+    }
+
+    @KafkaListener(topics = "commit-topic", groupId = "cart-group")
+    public void commitCart(String message) {
+        // Logic to commit cart
+    }
+
+    @KafkaListener(topics = "rollback-topic", groupId = "cart-group")
+    public void rollbackCart(String message) {
+        // Logic to rollback cart
+    }
 }
