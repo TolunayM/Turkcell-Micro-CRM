@@ -24,7 +24,7 @@ public class OrderEventListener {
 
     @KafkaListener(topics = "order-failed", groupId = "order-group")
     public void handleOrderFailedEvent(OrderFailedEvent orderFailedEvent) {
-        System.out.println("Order failed event received: " + orderFailedEvent);
+        System.out.println("Order failed event received: ");
         var order = orderRepository.findById(orderFailedEvent.getOrderId());
         order.get().setStatus("FAILED_STATUS");
         orderRepository.save(order.get());
