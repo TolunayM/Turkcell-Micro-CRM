@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "cart-service")
 public interface CartClient {
 
-    @GetMapping("/api/v1/cart/{cartId}")
+    @GetMapping("/api/v1/cart/items/{cartId}")
     CartProductsDTO getCartProducts(@PathVariable Long cartId);
 }
