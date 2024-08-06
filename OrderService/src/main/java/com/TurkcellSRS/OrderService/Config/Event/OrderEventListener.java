@@ -1,6 +1,7 @@
 package com.TurkcellSRS.OrderService.Config.Event;
 
 
+import com.TurkcellSRS.OrderService.Client.CartClient;
 import com.TurkcellSRS.OrderService.Repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -11,12 +12,13 @@ import org.springframework.stereotype.Component;
 public class OrderEventListener {
 
     private final OrderRepository orderRepository;
-
+    private final CartClient cartClient;
 
     @KafkaListener(topics = "order-created", groupId = "order-group")
     public void handleOrderCreatedEvent(OrderCreatedEvent orderCreatedEvent) {
         System.out.println("Order created event received: " + orderCreatedEvent);
         var order = orderRepository.findById(orderCreatedEvent.getOrderId());
+//        cartClient.getCartByCustomerId(orderCreatedEvent.getCustomerId());
         order.get().setStatus("CREATED_STATUS");
         orderRepository.save(order.get());
     }

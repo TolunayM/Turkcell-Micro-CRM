@@ -10,12 +10,12 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic orderCreatedTopic(){
-        return new NewTopic("orderCreated", 1, (short) 1);
+        return new NewTopic("order-created", 1, (short) 1);
     }
 
 
     @Bean
     public NewTopic orderFailedTopic(){
-        return new NewTopic("orderFailed", 1, (short) 1);
+        return new NewTopic("order-failed", 1, (short) 1);
     }
 }
