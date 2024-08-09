@@ -138,17 +138,21 @@ public class OrderServiceImpl implements OrderService {
 
     @KafkaListener(topics = "prepare-topic", groupId = "order-group")
     public void prepareOrder(String message) {
-        // Logic to prepare order
+        System.out.println(message);
         kafkaTemplate.send("prepare-response-topic", "OrderService:prepared");
     }
 
     @KafkaListener(topics = "commit-topic", groupId = "order-group")
     public void commitOrder(String message) {
         // Logic to commit order
+//        System.out.println("Order committed");
+        System.out.println(message);
+        kafkaTemplate.send("commit-response-topic", "OrderService:committed");
     }
 
     @KafkaListener(topics = "rollback-topic", groupId = "order-group")
     public void rollbackOrder(String message) {
         // Logic to rollback order
+        System.out.println("Order rolled back");
     }
 }

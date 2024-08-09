@@ -1,7 +1,6 @@
 package com.TurkcellSRS.CoordinatorService.Coordinator;
 
 
-import com.TurkcellSRS.CoordinatorService.CoordinatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +12,8 @@ public class CoordinatorController {
 
     private final CoordinatorService coordinatorService;
 
-    public boolean performTwoPhaseCommit(Long orderId, Long cartId) {
-        return coordinatorService.performTwoPhaseCommit(orderId, cartId);
+    @RequestMapping("/2pc")
+    public boolean performTwoPhaseCommit() {
+        return coordinatorService.performTwoPhaseCommit();
     }
 }

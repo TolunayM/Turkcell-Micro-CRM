@@ -84,23 +84,22 @@ public class CartServiceImpl implements CartService {
     //TODO Implement update cart items characteristics like for example quantity and 100 gb internet so every item should have characteristics like GB or MB
 
 
-
-
-
-
-    @KafkaListener(topics = "prepare-topic", groupId = "cart-group")
-    public void prepareCart(String message) {
-        // Logic to prepare cart
+    @KafkaListener(topics = "prepare-cart-topic", groupId = "cart-group")
+    public boolean prepareCart() {
+        System.out.println("Cart prepared");
         kafkaTemplate.send("prepare-response-topic", "CartService:prepared");
+        return true;
     }
 
-    @KafkaListener(topics = "commit-topic", groupId = "cart-group")
-    public void commitCart(String message) {
+    @KafkaListener(topics = "commit-cart-topic", groupId = "cart-group")
+    public void commitCart() {
+        System.out.println("Cart committed");
         // Logic to commit cart
+        kafkaTemplate.send("commit-response-topic", "CartService:committed");
     }
 
     @KafkaListener(topics = "rollback-topic", groupId = "cart-group")
-    public void rollbackCart(String message) {
+    public void rollbackCart() {
         // Logic to rollback cart
     }
 }
