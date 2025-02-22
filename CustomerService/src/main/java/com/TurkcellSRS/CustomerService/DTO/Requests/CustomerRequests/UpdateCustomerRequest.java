@@ -10,7 +10,7 @@ public class UpdateCustomerRequest {
 
     @Positive
     @NotBlank(message = "This field is required")
-    @Size(min = 11,max = 11)
+    @Digits(integer = 11, fraction = 0)
     private Long nationalityId;
 
     @NotBlank(message = "This field is required") @Size(max=50)
